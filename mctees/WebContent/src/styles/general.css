@@ -1,0 +1,16 @@
+@CHARSET "ISO-8859-1";
+body
+{
+	text-align:center;
+	font-family:Josefin Slab Helvetica Verdana sans-serif;
+	padding:0% 0.5% 0.5% 0.5%;
+}
+a
+{
+	text-decoration:none;
+	color:black;
+}
+a:hover
+{
+	text-decoration:underline;
+}

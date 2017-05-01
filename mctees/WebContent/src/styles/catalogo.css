@@ -1,0 +1,40 @@
+@CHARSET "ISO-8859-1";
+#mainCatalogo
+{
+	width:100%;
+	border-style:solid;
+	border-width:0.1em 0.1em 0.1em 0.1em;
+	padding:1% 0% 1% 0%;
+	min-height: 20em;
+}
+#mainCatalogo section
+{
+	border-style:solid;
+	border-width:0.1em 0.1em 0.1em 0.1em;
+	padding:0.5% 0% 0.5% 0%;
+}
+#mainCatalogo #sideCatalogo
+{
+	width: 15%;
+	margin-left: 1%;
+   margin-right: 0.5%;
+   position:absolute;
+   left: 1%;
+}
+#mainCatalogo #sideCatalogo table
+{
+	text-align:left;
+	border-style:none;
+	border-collapse:separate;
+	border-spacing:1em 0.5em;
+}
+#mainCatalogo #sideCatalogo #toptable
+{
+	border-bottom-style: solid;
+   border-bottom-width: 0.1em;
+}
+#mainCatalogo #articoliCatalogo
+{
+	width: 82%;
+   margin-left: 17%;
+}

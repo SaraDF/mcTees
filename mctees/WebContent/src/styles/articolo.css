@@ -1,0 +1,51 @@
+@CHARSET "ISO-8859-1";
+#mainArticolo
+{
+	width: 100%;
+   position: relative;
+   border-style: solid;
+   border-width: 0.1em 0.1em 0.1em 0.1em;
+}
+#mainArticolo #upperArticolo
+{
+	width: 100%;
+   padding: 1% 0% 1% 0%;
+   min-height: 28em;
+}
+#mainArticolo #upperArticolo #fotoArticolo
+{
+	width: 30%;
+	border-style: solid;
+   border-width: 0.1em 0.1em 0.1em 0.1em;
+   position: absolute;
+   left: 5%;
+}
+#mainArticolo #upperArticolo img
+{
+	width:100%;
+}
+#mainArticolo #upperArticolo #infoArticolo
+{
+	width: 40%;
+   border-style: solid;
+   border-width: 0.1em 0.1em 0.1em 0.1em;
+   padding: 1% 1% 1% 1%;
+   margin-left: 40%;
+}
+#mainArticolo #upperArticolo #infoArticolo table
+{
+	position:relative;
+}
+#mainArticolo #upperArticolo #infoArticolo img
+{
+	width: 10%;
+   position: absolute;
+   right: 3.5em;
+   top: -0.1em;
+}
+#mainArticolo #lowerArticolo
+{
+	border-style: solid;
+   border-width: 0.1em 0em 0em 0em;
+   padding: 1% 0% 1% 0%;
+}

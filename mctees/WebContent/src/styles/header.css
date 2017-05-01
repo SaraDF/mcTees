@@ -1,0 +1,66 @@
+@CHARSET "ISO-8859-1";
+header
+{
+	width:100%;
+	border-style:solid;
+	border-width:0.1em 0.1em 0.1em 0.1em;
+	padding:1% 0% 1% 0%;
+}
+header #upper
+{
+	width:100%;
+}
+header #upper #searchbar
+{
+	position:relative;
+	width:20%;
+	margin-right:50%;
+	display:inline-block;
+}
+header #upper #searchbar #searchlens
+{
+	position:absolute;
+	width:8%;
+}
+header #upper #logincarrello
+{
+	width:20%;
+	display:inline-block;
+}
+header #upper #logincarrello img
+{
+	width:8%;
+}
+header #navigation img
+{
+	width:5%;
+	margin-left:3%;
+	margin-right:3%;
+}
+header #navigation #wishlist
+{
+	margin-right:3%;
+}
+/* Menù a tendina */
+header #navigation #catalogo
+{
+	display:inline-block;
+	position:relative;
+	margin-left:3%;
+	
+}
+header #navigation #catalogo #dropdown
+{
+	display:none;
+}
+header #navigation #catalogo:hover #dropdown
+{
+	display:block;
+	position:absolute;
+	z-index:1;
+	border-style:solid;
+	border-width:0.1em 0.1em 0.1em 0.1em;
+	padding:5% 5% 5% 5%;
+	margin-top:2%;
+	background-color:grey;
+}

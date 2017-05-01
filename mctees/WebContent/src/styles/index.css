@@ -1,0 +1,32 @@
+@CHARSET "ISO-8859-1";
+#mainIndex
+{
+	width:100%;
+	border-style:solid;
+	border-width:0.1em 0.1em 0.1em 0.1em;
+	padding:1% 0% 1% 0%;
+}
+#mainIndex section
+{
+	border-style:solid;
+	border-width:0.1em 0.1em 0.1em 0.1em;
+	padding:1% 0% 1% 0%;
+}
+#mainIndex section p
+{
+	width:20%;
+	text-align:left;
+	display:inline-block;
+}
+#mainIndex section p.leftsection
+{
+	margin-right:10%;
+}
+#mainIndex section p.rightsection
+{
+	margin-left:10%;
+}
+#mainIndex section img
+{
+	width:10%;
+}
