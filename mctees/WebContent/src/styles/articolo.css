@@ -38,10 +38,7 @@
 }
 #mainArticolo #upperArticolo #infoArticolo img
 {
-	width: 10%;
-   position: absolute;
-   right: 3.5em;
-   top: -0.1em;
+	width: 25%;
 }
 #mainArticolo #lowerArticolo
 {

@@ -38,7 +38,8 @@
 			</section>
 			
 			<section id="articoliCatalogo">
-			<% ArrayList<TemaBean> list=(ArrayList<TemaBean>) request.getAttribute("list");
+			<% 
+				ArrayList<TemaBean> list=(ArrayList<TemaBean>) request.getAttribute("list");
 				int i=0, n=list.size();
 				while(i<n)
 				{
@@ -49,7 +50,7 @@
 				<%	}%>
 							<div class="tema">
 								Qua ci va un immagine<br><br><br><br><br><br><br>
-								<a href="articolo?codice=<%=tema.getCodice()%>"><%= tema.getNome() %></a><br>
+								<a href="articolo?codiceTema=<%=tema.getCodice()%>"><%= tema.getNome() %></a><br>
 								€ <%= tema.getPrezzo()%>
 							</div>
 				<%	if(i%3==2)
@@ -58,6 +59,7 @@
 				<%	}
 					i++;
 				}
+				
 				if(i%3>0)
 				{%>
 						</div>

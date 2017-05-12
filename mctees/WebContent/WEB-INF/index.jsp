@@ -22,7 +22,7 @@
 			Slider immagini<br><br><br><br><br><br>
 			<section>
 				<p class="leftsection">
-					<a href="catalogo.html">Film</a><br>
+					<a href="catalogo">Film</a><br>
 					Pulp Fiction, Harry Potter...<br><br><br><br><br><br>
 				</p>
 				<img src="src/images/magliagiochi.png" class="right">
@@ -31,14 +31,14 @@
 			<section>
 				<img src="src/images/magliagiochi.png" class="left">
 				<p class="rightsection">
-					<a href="catalogo.html">Serie TV</a><br>
+					<a href="catalogo">Serie TV</a><br>
 					Breaking Bad, The Flash...<br><br><br><br><br><br>
 				</p>
 			</section>
 			
 			<section>
 				<p class="leftsection">
-					<a href="catalogo.html">Videogiochi</a><br>
+					<a href="catalogo">Videogiochi</a><br>
 					Final Fantasy, Borderlands...<br><br><br><br><br>
 				</p>
 				<img src="src/images/magliagiochi.png" class="right">
@@ -47,7 +47,7 @@
 			<section>
 				<img src="src/images/magliagiochi.png" class="left">
 				<p class="rightsection">
-					<a href="altro.html">Altro...</a><br><br><br><br><br><br>
+					<a href="catalogo">Altro...</a><br><br><br><br><br><br>
 				</p>
 			</section>
 		</div>

@@ -24,15 +24,15 @@ public class CatalogoModel extends Model
 			ArrayList<TemaBean> list=new ArrayList<TemaBean>();
 			while(rs.next())
 			{
-				TemaBean tema=new TemaBean();
-				tema.setCodice(rs.getString("Codice"));
-				tema.setNome(rs.getString("Nome"));
-				tema.setPrezzo(rs.getDouble("Prezzo"));
+				TemaBean tb=new TemaBean();
+				tb.setCodice(rs.getString("Codice"));
+				tb.setNome(rs.getString("Nome"));
+				tb.setPrezzo(rs.getDouble("Prezzo"));
 				GregorianCalendar data=new GregorianCalendar();
 				data.setTime(rs.getDate("DataAggiunta"));
-				tema.setDataAggiunta(data);
-				tema.setEdizioneLimitata(rs.getBoolean("EdizioneLimitata"));
-				list.add(tema);
+				tb.setDataAggiunta(data);
+				tb.setEdizioneLimitata(rs.getBoolean("EdizioneLimitata"));
+				list.add(tb);
 			}
 			return list;
 		}
