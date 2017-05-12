@@ -35,6 +35,29 @@
 }
 #mainCatalogo #articoliCatalogo
 {
-	width: 82%;
+	width: 80%;
    margin-left: 17%;
+   padding:1% 1% 1% 1%;
+   min-height:20em;
+}
+#mainCatalogo #articoliCatalogo div.temaRow
+{
+	text-align: left;
+   width: 97%;
+   border-style: solid;
+   border-width: 1px 1px 1px 1px;
+   padding: 2% 1% 2% 2%;
+   margin-bottom: 1%;
+   min-height: 15em;
+}
+#mainCatalogo #articoliCatalogo div.tema
+{
+	text-align:center;
+	display:inline-block;
+	width:25%;
+	border-style:solid;
+	border-width:1px 1px 1px 1px;
+	margin-right: 3.5%;
+   margin-left: 3.5%;
+   min-height: 15em;
 }
