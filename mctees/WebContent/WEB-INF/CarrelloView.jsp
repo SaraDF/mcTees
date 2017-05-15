@@ -2,6 +2,7 @@
 		language="java"
 		contentType="text/html; charset=ISO-8859-1"
     	pageEncoding="ISO-8859-1"
+    	import="java.util.ArrayList, mctees.beans.VoceBean"
 %>
 <!DOCTYPE html>
 <html>
@@ -19,8 +20,23 @@
 		<%@ include file="fragments/header.html"%> 
 		
 		<div id="mainCarrello">
-			<br>
-			<br><br><br><br><br><br><br><br><br>
+		<%
+			ArrayList<VoceBean> listaVoci=(ArrayList<VoceBean>) request.getAttribute("listaVoci");
+			int n=listaVoci.size();
+			for(int i=0; i<n; i++)
+			{
+				VoceBean voce=listaVoci.get(i);
+		%>		
+				Nome: <%=voce.getArticolo().getTema().getNome()%>
+				Sesso: <%=voce.getArticolo().getMaglietta().getSesso()%>
+				Tipo: <%=voce.getArticolo().getMaglietta().getTipo()%>
+				Taglia: <%=voce.getArticolo().getMaglietta().getTaglia()%>
+				Colore: <%=voce.getArticolo().getMaglietta().getColore()%>
+				//Sistemare il prezzo: va ricalcolato
+				Prezzo: <%=voce.getPrezzo()%>
+		<%
+			}
+		%>
 		</div>
 		
 		<%@ include file="fragments/footer.html"%> 

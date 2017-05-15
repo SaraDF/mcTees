@@ -9,8 +9,9 @@ public class TemaBean
 	private double prezzo;
 	private GregorianCalendar dataAggiunta;
 	private boolean edizioneLimitata;
-	//Mancano CatalogoBean e ScontoBean
-	
+	private CategoriaBean categoria;
+	private ScontoBean sconto;
+
 	public TemaBean()
 	{
 		
@@ -54,5 +55,21 @@ public class TemaBean
 
 	public void setEdizioneLimitata(boolean edizioneLimitata) {
 		this.edizioneLimitata = edizioneLimitata;
+	}
+	
+	public CategoriaBean getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(CategoriaBean categoria) {
+		this.categoria = categoria;
+	}
+
+	public ScontoBean getSconto() {
+		return sconto;
+	}
+
+	public void setSconto(ScontoBean sconto) {
+		this.sconto = sconto;
 	}
 }

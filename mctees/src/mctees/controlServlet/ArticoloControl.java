@@ -26,11 +26,11 @@ public class ArticoloControl extends HttpServlet
 	{
 		//Invoca i metodi di model per avere una lista di ArticoloBean da passare al View
 		String codiceTema=request.getParameter("codiceTema");
-		ArrayList<ArticoloBean> list=new ArrayList<ArticoloBean>();
-		ArticoloModel am=new ArticoloModel();
-		list=am.selectAllArticoli(codiceTema);
+		ArrayList<ArticoloBean> listaArticoli=new ArrayList<ArticoloBean>();
+		ArticoloModel articolo=new ArticoloModel();
+		listaArticoli=articolo.selectAllArticoli(codiceTema);
 		
-		request.setAttribute("list", list);
+		request.setAttribute("listaArticoli", listaArticoli);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/ArticoloView.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -39,5 +39,4 @@ public class ArticoloControl extends HttpServlet
 	{
 		doGet(request, response);
 	}
-
 }

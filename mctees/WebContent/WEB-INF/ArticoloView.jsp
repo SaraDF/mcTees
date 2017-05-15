@@ -96,6 +96,40 @@
 		<%@ include file="fragments/footer.html"%>
 		
 		<script>
+			function creaListaArticoli()
+			{
+				var x, list=[];
+				<% 
+					ArrayList<ArticoloBean> listaArticoli=(ArrayList<ArticoloBean>) request.getAttribute("listaArticoli");
+					int i=0, n=listaArticoli.size();
+					while(i<n)
+					{
+						ArticoloBean articolo=listaArticoli.get(i);
+				%>
+						x=new Object();
+						x.codice="<%=articolo.getCodice()%>";
+						x.sesso="<%=articolo.getMaglietta().getSesso()%>";
+						x.tipo="<%=articolo.getMaglietta().getTipo()%>";
+						x.taglia="<%=articolo.getMaglietta().getTaglia()%>";
+						x.colore="<%=articolo.getMaglietta().getColore()%>";
+						x.prezzoMaglietta=<%=articolo.getMaglietta().getPrezzo()%>;
+						x.prezzoTema=<%=articolo.getTema().getPrezzo()%>;
+					<%	if(articolo.getTema().getSconto()==null)
+						{
+					%>		x.percentualeSconto=0.0;
+					<%	}
+						else
+						{
+					%>		x.percentualeSconto=<%=articolo.getTema().getSconto().getPercentuale()%>;
+					<%	}
+					%>	x.stock=<%=articolo.getStock()%>;
+						
+						list.push(x);
+				<% 	i++;
+					}
+				%>
+				return list;
+			}
 			function nonDisponibile()
 			{
 				document.getElementById("disponibilit‡").innerHTML="Non disponibile";
@@ -127,7 +161,14 @@
 				else
 					document.getElementById("logoDisponibilit‡").replaceChild(img, document.getElementById("logoDisponibilit‡").childNodes[0]);
 				
-				document.getElementById("prezzoId").innerHTML=x.prezzo;
+				var prezzo;
+				if(x.percentualeSconto>0)
+					prezzo=x.prezzoMaglietta + (x.prezzoTema - (x.prezzoTema * x.percentualeSconto / 100));
+				else
+					prezzo=x.prezzoMaglietta + x.prezzoTema;
+				document.getElementById("prezzoId").innerHTML=prezzo;
+				//Passare il value del Prezzo calcolato al server non serve: se lo ricalcola perchÈ potrebbe
+				//variare ancora MENTRE la voce sta nel carrello
 				
 				while (document.getElementById("quantit‡Id").firstChild)
 					document.getElementById("quantit‡Id").removeChild(document.getElementById("quantit‡Id").firstChild);
@@ -151,19 +192,17 @@
 				var colore=document.getElementById("coloreId").value;
 				
 				var i=0;
-				var n=articoli.length;
+				var n=listaArticoli.length;
 				var found=false;
 				while((i<n) && (!found))
-				{
-					if	((articoli[i].sesso==sesso)&&(articoli[i].tipo==tipo)&&(articoli[i].taglia==taglia)&&(articoli[i].colore==colore))
+					if	((listaArticoli[i].sesso==sesso)&&(listaArticoli[i].tipo==tipo)&&(listaArticoli[i].taglia==taglia)&&(listaArticoli[i].colore==colore))
 						found=true;
 					else
 						i++;
-				}
 				if(found)
 				{
-					disponibile(articoli[i]);
-					return articoli[i];
+					disponibile(listaArticoli[i]);
+					return listaArticoli[i];
 				}
 				else
 				{
@@ -178,36 +217,18 @@
 					alert("Articolo non disponibile :(");
 					return false;
 				}
+				var form=document.getElementById("infoArticolo");
+				form.action=form.action + "&codiceArticolo=" + selectedArticolo.codice;
 				return true;
 			}
 			function init()
 			{
-				var x, list=[];
-				<% 
-					ArrayList<ArticoloBean> list=(ArrayList<ArticoloBean>) request.getAttribute("list");
-					int i=0, n=list.size();
-					while(i<n)
-					{
-						ArticoloBean ab=list.get(i);
-				%>
-						x=new Object();
-						x.codice="<%=ab.getCodice()%>";
-						x.sesso="<%=ab.getMaglietta().getSesso()%>";
-						x.tipo="<%=ab.getMaglietta().getTipo()%>";
-						x.taglia="<%=ab.getMaglietta().getTaglia()%>";
-						x.colore="<%=ab.getMaglietta().getColore()%>";
-						x.prezzo=<%=ab.getMaglietta().getPrezzo()%>;
-						x.stock=<%=ab.getStock()%>;
-						list.push(x);
-				<% 	i++;
-					}
-				%>
-				return list;
+				listaArticoli=creaListaArticoli();
+				selectedArticolo=checkDisponibilit‡();
 			}
-			var articoli=[], selectedArticolo;
-	
-			articoli=init();
-			selectedArticolo=checkDisponibilit‡();
+			var selectedArticolo;
+			var listaArticoli=[];	//mi servono globale per comodit‡
+			window.onload=init;
 		</script>
 	</body>
 </html>
