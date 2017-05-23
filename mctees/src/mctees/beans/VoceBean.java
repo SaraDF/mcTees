@@ -1,6 +1,10 @@
 package mctees.beans;
 
-public class VoceBean {
+import java.io.Serializable;
+
+public class VoceBean implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private String codice;
 	private ArticoloBean articolo;
@@ -42,7 +46,4 @@ public class VoceBean {
 	public void setPrezzo(double prezzo) {
 		this.prezzo = prezzo;
 	}
-	
-	
-	
 }

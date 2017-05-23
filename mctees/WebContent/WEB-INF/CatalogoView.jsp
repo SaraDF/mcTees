@@ -1,6 +1,6 @@
 <%@ page
 		language="java"
-		contentType="text/html; charset=utf-8"
+		contentType="text/html"
     	pageEncoding="ISO-8859-1"
     	import="java.util.ArrayList, mctees.beans.TemaBean"
 %>
@@ -49,9 +49,11 @@
 						<div class="temaRow">
 				<%	}%>
 							<div class="tema">
-								Qua ci va un immagine<br><br><br><br><br><br><br>
+								<section class="fotoTema">
+									<img src="src/images/magliagiochi.png">
+								</section>
 								<a href="articolo?codiceTema=<%=tema.getCodice()%>"><%= tema.getNome() %></a><br>
-								€ <%= tema.getPrezzo()%>
+								&euro; <%= tema.getPrezzo()%>
 							</div>
 				<%	if(i%3==2)
 					{%>

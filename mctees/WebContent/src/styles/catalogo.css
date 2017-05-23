@@ -50,7 +50,7 @@
    margin-bottom: 1%;
    min-height: 15em;
 }
-#mainCatalogo #articoliCatalogo div.tema
+#mainCatalogo #articoliCatalogo div.temaRow div.tema
 {
 	text-align:center;
 	display:inline-block;
@@ -60,4 +60,14 @@
 	margin-right: 3.5%;
    margin-left: 3.5%;
    min-height: 15em;
+}
+#mainCatalogo #articoliCatalogo div.temaRow div.tema section.fotoTema
+{
+	width:99%;
+	border-style: solid;
+   border-width: 0.1em 0.1em 0.1em 0.1em;
+}
+#mainCatalogo #articoliCatalogo div.temaRow div.tema section.fotoTema img
+{
+	width:100%;
 }

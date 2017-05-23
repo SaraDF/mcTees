@@ -1,0 +1,44 @@
+@CHARSET "ISO-8859-1";
+#mainCheckout
+{
+	width:100%;
+	border-style: solid;
+   border-width: 0.1em 0.1em 0.1em 0.1em;
+   min-height:20em;
+   padding: 0.5% 0% 0.5% 0%;
+}
+#mainCheckout #modalit‡Checkout
+{
+	display: inline-block;
+   width: 70%;
+   border-style: solid;
+  vertical-align: top;
+}
+#mainCheckout #recapCheckout
+{
+	display: inline-block;
+   width: 25%;
+   border-style: solid;
+}
+#mainCheckout #recapCheckout div.rowRecap 
+{
+	
+}
+#mainCheckout #recapCheckout div.rowRecap section.fotoVoce
+{
+	display: inline-block;
+   width: 50%;
+}
+#mainCheckout #recapCheckout div.rowRecap section.fotoVoce img
+{
+	width:100%;
+}
+#mainCheckout #recapCheckout div.rowRecap section.infoVoce
+{
+    display: inline-block;
+    width: 48%;
+}
+#mainCheckout #recapCheckout #lowerRecap
+{
+	border-top-style: solid;
+}

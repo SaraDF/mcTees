@@ -20,25 +20,65 @@
 		<%@ include file="fragments/header.html"%> 
 		
 		<div id="mainCarrello">
-		<%
-			ArrayList<VoceBean> listaVoci=(ArrayList<VoceBean>) request.getAttribute("listaVoci");
-			int n=listaVoci.size();
-			for(int i=0; i<n; i++)
-			{
-				VoceBean voce=listaVoci.get(i);
-		%>		
-				Nome: <%=voce.getArticolo().getTema().getNome()%>
-				Sesso: <%=voce.getArticolo().getMaglietta().getSesso()%>
-				Tipo: <%=voce.getArticolo().getMaglietta().getTipo()%>
-				Taglia: <%=voce.getArticolo().getMaglietta().getTaglia()%>
-				Colore: <%=voce.getArticolo().getMaglietta().getColore()%>
-				//Sistemare il prezzo: va ricalcolato
-				Prezzo: <%=voce.getPrezzo()%>
-		<%
-			}
-		%>
+		<%	ArrayList<VoceBean> listaVoci=(ArrayList<VoceBean>) request.getAttribute("listaVoci");
+			if(listaVoci!=null)
+			{%>
+				<div id="upperCarrello">
+					<span id="itemSpan">Item</span>
+					<span id="prezzoSpan">Prezzo</span>
+					<span id="quantitàSpan">Quantità</span>
+					<span id="totaleSpan">Totale</span>
+				</div>
+				
+				<div id="centralCarrello">
+				<%	int n=listaVoci.size();
+					double totale=0;
+					for(int i=0; i<n; i++)
+					{
+						VoceBean voce=listaVoci.get(i);
+						totale+=voce.getPrezzo()*voce.getQuantità();
+				%>		<div class="rowCarrello">
+							<section class="fotoVoce">
+								<img src="src/images/magliagiochi.png">
+							</section>
+							<section class="infoArticoloVoce">
+								Nome: <%=voce.getArticolo().getTema().getNome()%><br>
+								Sesso: <%=voce.getArticolo().getMaglietta().getSesso()%><br>
+								Tipo: <%=voce.getArticolo().getMaglietta().getTipo()%><br>
+								Taglia: <%=voce.getArticolo().getMaglietta().getTaglia()%><br>
+								Colore: <%=voce.getArticolo().getMaglietta().getColore()%>
+							</section>
+							<section>
+								<%=voce.getPrezzo()%> &euro;
+							</section>
+							<section>
+								<form method="post" action="carrello?action=show">
+									<button type="submit" formaction="carrello?action=decrease&codiceArticolo=<%=voce.getArticolo().getCodice()%>">-</button>
+									&nbsp;<%=voce.getQuantità()%>&nbsp;
+									<button type="submit" formaction="carrello?action=increase&codiceArticolo=<%=voce.getArticolo().getCodice()%>">+</button>
+								</form>
+							</section>
+							<section>
+								<%=voce.getPrezzo()*voce.getQuantità()%> &euro;
+							</section>
+							<section>
+								<form method="post" action="carrello?action=remove&codiceArticolo=<%=voce.getArticolo().getCodice()%>">
+									<button type="submit">Rimuovi</button>
+								</form>
+							</section>
+						</div>	
+				<%	} %>
+				</div>
+			
+				<div id="lowerCarrello">
+					<span><%=totale %> &euro;</span>
+					<form method="post" action="checkout">
+						<button type="submit">Checkout</button>
+					</form>
+				</div>
+		<% }%>
 		</div>
-		
+
 		<%@ include file="fragments/footer.html"%> 
 	</body>
 </html>

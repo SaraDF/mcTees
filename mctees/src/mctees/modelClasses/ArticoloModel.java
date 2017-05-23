@@ -63,6 +63,12 @@ public class ArticoloModel extends Model
 					data.setTime(rs.getDate("dataFineSconto"));
 					sconto.setDataFine(data);
 					sconto.setPercentuale(rs.getDouble("percentualeSconto"));
+					
+					//Se non è attivo lo sconto su quel tema
+					GregorianCalendar today=new GregorianCalendar();
+					if (!((today.getTime().after(sconto.getDataInizio().getTime()))
+							&& (today.getTime().before(sconto.getDataFine().getTime()))))
+								sconto=null;
 				}
 				tema.setSconto(sconto);
 				

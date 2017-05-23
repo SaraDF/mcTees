@@ -1,0 +1,76 @@
+@CHARSET "ISO-8859-1";
+#mainCarrello
+{
+	width:100%;
+	border-style: solid;
+   border-width: 0.1em 0.1em 0.1em 0.1em;
+}
+#mainCarrello #upperCarrello
+{
+	width: 100%;
+	position:relative;
+	margin-bottom:1%;
+}
+#mainCarrello #upperCarrello span
+{
+	position:absolute;
+}
+#mainCarrello #upperCarrello #itemSpan
+{
+   left:15%;
+}
+#mainCarrello #upperCarrello #prezzoSpan
+{
+   left:36.5%;
+}
+#mainCarrello #upperCarrello #quantit‡Span
+{
+   left:53.5%;
+}
+#mainCarrello #upperCarrello #totaleSpan
+{
+   left:71.2%;
+}
+#mainCarrello #centralCarrello
+{
+	width: 100%;
+   padding: 1% 0% 1% 0%;
+   min-height: 20em;
+}
+#mainCarrello #centralCarrello div.rowCarrello section
+{
+	display:inline-block;
+	width:17%;
+}
+#mainCarrello #centralCarrello div.rowCarrello section.fotoVoce
+{
+	width: 10%;
+	border-style: solid;
+   border-width: 0.1em 0.1em 0.1em 0.1em;
+}
+#mainCarrello #centralCarrello div.rowCarrello img
+{
+	width:100%;
+}
+#mainCarrello #lowerCarrello
+{
+	width:100%;
+	padding-top: 0.5%;
+   padding-bottom: 0.5%;
+   min-height: 1em;
+   text-align: right;
+   border-top-style: solid;
+   border-top-width: 0.1em;
+}
+#mainCarrello #lowerCarrello span
+{
+	display: inline-block;
+   position: relative;
+   right: 20%;
+}
+#mainCarrello #lowerCarrello form
+{
+	display:inline-block;
+	position: relative;
+   right: 7.2%;
+}

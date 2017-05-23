@@ -74,14 +74,20 @@
 							<td id="logoDisponibilità"></td>
 						</tr>
 						<tr>
-							<td>Prezzo</td>
+							<td>Prezzo cad.</td>
 							<td id="prezzoId"></td>
+							<td>&euro;</td>
 						</tr>
 						<tr>
 							<td>Quantità</td>
 							<td>
-								<select name="quantità" id="quantitàId"></select>
+								<select name="quantità" id="quantitàId" onChange="calcolaTotale()"></select>
 							</td>
+						</tr>
+						<tr>
+							<td>Prezzo totale</td>
+							<td id="prezzoTotaleId"></td>
+							<td>&euro;</td>
 						</tr>
 						<tr><td><input type="submit" value="Aggiungi al carrello" onClick="return validateForm()"></td></tr>
 					</table>
@@ -142,6 +148,7 @@
 					document.getElementById("logoDisponibilità").replaceChild(img, document.getElementById("logoDisponibilità").childNodes[0]);
 				
 				document.getElementById("prezzoId").innerHTML="N/A";
+				document.getElementById("prezzoTotaleId").innerHTML="N/A";
 				
 				while (document.getElementById("quantitàId").firstChild)
 					document.getElementById("quantitàId").removeChild(document.getElementById("quantitàId").firstChild);
@@ -161,12 +168,12 @@
 				else
 					document.getElementById("logoDisponibilità").replaceChild(img, document.getElementById("logoDisponibilità").childNodes[0]);
 				
-				var prezzo;
+				var prezzo=x.prezzoMaglietta + x.prezzoTema;
 				if(x.percentualeSconto>0)
-					prezzo=x.prezzoMaglietta + (x.prezzoTema - (x.prezzoTema * x.percentualeSconto / 100));
-				else
-					prezzo=x.prezzoMaglietta + x.prezzoTema;
+					prezzo=prezzo - (x.prezzoTema * x.percentualeSconto / 100);
+					
 				document.getElementById("prezzoId").innerHTML=prezzo;
+				document.getElementById("prezzoTotaleId").innerHTML=prezzo;
 				//Passare il value del Prezzo calcolato al server non serve: se lo ricalcola perché potrebbe
 				//variare ancora MENTRE la voce sta nel carrello
 				
@@ -209,6 +216,10 @@
 					nonDisponibile();
 					return null;
 				}
+			}
+			function calcolaTotale()
+			{
+				document.getElementById("prezzoTotaleId").innerHTML=document.getElementById("prezzoId").innerHTML * document.getElementById("quantitàId").value;
 			}
 			function validateForm()
 			{
