@@ -1,0 +1,135 @@
+Sconto (Codice DataInizio DataFine Percentuale)
+S0053  25-08-2016  12-09-2016  10
+S0038  20-01-2016  02-03-2016  10
+S0005  05-03-2016  12-12-2016  20
+S0015  12-10-2016  30-04-2017  10
+
+Categoria (Codice Nome)
+CCF01 Film e Cartoni
+CCS02 Serie TV
+CCG03 Giochi
+CCO04 Altro
+
+Tema (Codice Nome Prezzo DataAggiunta EdizioneLimitata Categoria Sconto)
+DT0034 StarkHouse 14 20-05-2016 1 CCS02 S0053
+DT0204 Avengers 12 11-03-2017 0 CCF01 null
+DT0031 Digimon 12 05-10-2015 1 CCS02 null
+DT0012 Skyrim 14 30-11-2015 1 CCG03 S0038
+DT0119 Pokemon 14 18-09-2016 1 CCG03 S0015
+DT0008 BePositive 10 02-08-2016 1 CCO04 null
+
+Maglietta (Codice Prezzo Tipo Taglia Sesso Colore)
+S80101 5 F S Blu
+S80102 5 F S Rossa
+S80103 5 F S Verde
+S80104 5 F S Grigia
+S80105 5 F S Nera
+S81105 8 F S Nera
+S81104 8 F S Grigia
+S80106 3 F S Bianca
+S80201 5 F M Blu
+S80202 5 F M Rossa
+S80203 5 F M Verde
+S80204 5 F M Grigia
+S80205 5 F M Nera
+S80206 3 F M Bianca
+S81205 8 F M Nera
+S81204 8 F M Grigia
+S80301 5 F L Blu
+S80302 5 F L Nera
+S80303 3 F L Bianca
+S80304 5 F L Rossa
+S80305 5 F L Verde
+S81302 8 F L Nera
+S81303 8 F L Grigia
+S80401 5 F XL Nera
+S80301 5 F XL Blu
+S80302 3 F XL Bianca
+S81301 8 F XL Nera
+S40101 5 M S Blu
+S40102 5 M S Rossa
+S40103 5 M S Verde
+S40104 5 M S Grigia
+S40105 5 M S Nera
+S41105 8 M S Nera
+S41104 8 M S Grigia
+S40106 3 M S Bianca
+S40201 5 M M Blu
+S40202 5 M M Rossa
+S40203 5 M M Verde
+S40204 5 M M Grigia
+S40205 5 M M Nera
+S40206 3 M M Bianca
+S41205 8 M M Nera
+S41204 8 M M Grigia
+S40301 5 M L Blu
+S40302 5 M L Nera
+S40303 3 M L Bianca
+S40304 5 M L Rossa
+S40305 5 M L Verde
+S41302 8 M L Nera
+S41303 8 M L Grigia
+S40401 5 M XL Nera
+S40301 5 M XL Blu
+S40302 3 M XL Bianca
+S41301 8 M XL Nera
+
+Articolo (Codice Stock DataAggiunta Tema Maglietta)
+A9001 20 20-10-2016 DT0068 S40201 
+A9002 50 23-09-2016 DT0119 S81204 
+A9009 200 05-02-2017 DT0108 S81303
+A9012 165 07-08-2016 DT0008 S80104
+A9042 139 27-01-2017 DT0108 S81302
+A9074 58 06-08-2016 DT0008 S40304
+A9106 45 27-03-2017 DT0204 S81104
+A9214 161 03-07-2016 DT0031 S40301
+A9034 97 20-04-2017 DT0108 S40201
+A9371 84 14-03-2017 DT0108 S40103
+
+Utente (Codice Username Password Email Cognome Nome DataNascita)
+UC00001 Quimelle 30061993 sara.df@hotmail.it DeFilippo Sara 30-06-1993
+UC00002 Emarik manuscemo eiannone@hotmail.it Iannone Emanuele 01-09-1996
+
+Cliente (Utente Saldo IndirizzoRecapito)
+UC00001 40 Via pedagnali,4
+UC00002 35 Via Enea,7
+
+Amminstratore (Utente)
+UC00001
+UC00002
+
+Whishlist (Codice Cliente)
+CW00001 UC00001
+CW00002 UC00002
+
+Aggiunta (Whishlist Articolo DataAggiunta)
+CW00001 A9074 12-08-2016
+CW00001 A9034 21-04-2017
+CW00001 A9009 05-03-2017
+CW00002 A9371 16-03-2017
+
+Spedizione (Codice Nome Prezzo Giorni Descrizione)
+SP01 Prioritaria 3 10 null
+SP02 Raccomandata 6 7 null
+
+Voce (Codice Articolo Quantità Prezzo)
+VA00054 A9042 1 20
+VA00012 A9034 1 18
+VA01023 A9001 2 18
+
+Ordine (Codice Cliente)
+O803428 UC00001
+O800431 UC00002
+
+Ordine Confermato (Ordine DataConferma IndirizzoSpedizione Spedizione)
+O803428 08-05-2017 Via Pedagnali,4 SP01
+
+OrdineNonConfermato (Ordine)
+O800431
+
+Composizione (Ordine Voce)
+O803428 VA00054
+O803428 VA00012
+
+Ricevuta (Codice Ordine Descrizione)
+RO00032 O803428 null

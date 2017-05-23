@@ -1,0 +1,84 @@
+load data local infile 'D:\\UNISA\\II Anno\\05 Programmazione Web\\Documenti\\Sito_DeFilippo_Iannone\\CSV files\\Sconto.csv'
+into table Sconto
+fields terminated by ','
+lines terminated by '\n';
+
+load data local infile 'D:\\UNISA\\II Anno\\05 Programmazione Web\\Documenti\\Sito_DeFilippo_Iannone\\CSV files\\Categoria.csv'
+into table Categoria
+fields terminated by ','
+lines terminated by '\n';
+
+load data local infile 'D:\\UNISA\\II Anno\\05 Programmazione Web\\Documenti\\Sito_DeFilippo_Iannone\\CSV files\\Tema.csv'
+into table Tema
+fields terminated by ','
+lines terminated by '\n';
+
+load data local infile 'D:\\UNISA\\II Anno\\05 Programmazione Web\\Documenti\\Sito_DeFilippo_Iannone\\CSV files\\Maglietta.csv'
+into table Maglietta
+fields terminated by ','
+lines terminated by '\n';
+
+load data local infile 'D:\\UNISA\\II Anno\\05 Programmazione Web\\Documenti\\Sito_DeFilippo_Iannone\\CSV files\\Articolo.csv'
+into table Articolo
+fields terminated by ','
+lines terminated by '\n';
+
+load data local infile 'D:\\UNISA\\II Anno\\05 Programmazione Web\\Documenti\\Sito_DeFilippo_Iannone\\CSV files\\Utente.csv'
+into table Utente
+fields terminated by ','
+lines terminated by '\n';
+
+load data local infile 'D:\\UNISA\\II Anno\\05 Programmazione Web\\Documenti\\Sito_DeFilippo_Iannone\\CSV files\\Cliente.csv'
+into table Cliente
+fields terminated by ','
+lines terminated by '\n';
+
+load data local infile 'D:\\UNISA\\II Anno\\05 Programmazione Web\\Documenti\\Sito_DeFilippo_Iannone\\CSV files\\Amministratore.csv'
+into table Amministratore
+fields terminated by ','
+lines terminated by '\n';
+
+load data local infile 'D:\\UNISA\\II Anno\\05 Programmazione Web\\Documenti\\Sito_DeFilippo_Iannone\\CSV files\\Wishlist.csv'
+into table Wishlist
+fields terminated by ','
+lines terminated by '\n';
+
+load data local infile 'D:\\UNISA\\II Anno\\05 Programmazione Web\\Documenti\\Sito_DeFilippo_Iannone\\CSV files\\Aggiunta.csv'
+into table Aggiunta
+fields terminated by ','
+lines terminated by '\n';
+
+load data local infile 'D:\\UNISA\\II Anno\\05 Programmazione Web\\Documenti\\Sito_DeFilippo_Iannone\\CSV files\\Spedizione.csv'
+into table Spedizione
+fields terminated by ','
+lines terminated by '\n';
+
+load data local infile 'D:\\UNISA\\II Anno\\05 Programmazione Web\\Documenti\\Sito_DeFilippo_Iannone\\CSV files\\Voce.csv'
+into table Voce
+fields terminated by ','
+lines terminated by '\n';
+
+load data local infile 'D:\\UNISA\\II Anno\\05 Programmazione Web\\Documenti\\Sito_DeFilippo_Iannone\\CSV files\\Ordine.csv'
+into table Ordine
+fields terminated by ','
+lines terminated by '\n';
+
+load data local infile 'D:\\UNISA\\II Anno\\05 Programmazione Web\\Documenti\\Sito_DeFilippo_Iannone\\CSV files\\OrdineConfermato.csv'
+into table OrdineConfermato
+fields terminated by ','
+lines terminated by '\n';
+
+load data local infile 'D:\\UNISA\\II Anno\\05 Programmazione Web\\Documenti\\Sito_DeFilippo_Iannone\\CSV files\\OrdineNonConfermato.csv'
+into table OrdineNonConfermato
+fields terminated by ','
+lines terminated by '\n';
+
+load data local infile 'D:\\UNISA\\II Anno\\05 Programmazione Web\\Documenti\\Sito_DeFilippo_Iannone\\CSV files\\Composizione.csv'
+into table Composizione
+fields terminated by ','
+lines terminated by '\n';
+
+load data local infile 'D:\\UNISA\\II Anno\\05 Programmazione Web\\Documenti\\Sito_DeFilippo_Iannone\\CSV files\\Ricevuta.csv'
+into table Ricevuta
+fields terminated by ','
+lines terminated by '\n';

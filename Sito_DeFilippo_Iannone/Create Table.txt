@@ -1,0 +1,163 @@
+Create schema mctees;
+Use mctees;
+
+Create table Sconto
+(
+	Codice varchar(10) primary key,
+	DataInizio date not null,
+	DataFine date check (DataFine>=DataInizio),
+	Percentuale decimal(4,2) not null check (Percentuale>0 and Percentuale<100)
+);
+
+Create table Categoria
+(
+	Codice varchar(10) primary key,
+	Nome varchar(20) not null check (Nome='Film e cartoni' or Nome='SerieTV' or  Nome='Giochi' or Nome='Altro')
+);
+
+Create table Tema
+(
+	Codice varchar(10) primary key,
+	Nome varchar(20) not null,
+	Prezzo decimal(5,2) not null check (Prezzo>0),
+	DataAggiunta date not null,
+	EdizioneLimitata boolean not null,
+	Categoria varchar(10) not null,
+	Sconto varchar(10),
+	
+	Foreign key (Categoria) references Categoria(Codice) on update cascade,
+	Foreign key (Sconto) references Sconto(Codice) on update cascade
+);
+
+Create table Maglietta
+(
+	Codice varchar(10) primary key,
+	Prezzo decimal(5,2) not null check (Prezzo>0),
+	Tipo varchar(10) not null check (Tipo='Felpa' or Tipo='T-shirt'),
+	Sesso char(1) not null check (Sesso='M' or Sesso='F'),
+	Taglia varchar(5) not null check (Taglia='S' or Taglia='M' or Taglia='L' or Taglia='XL'),
+	Colore varchar(15) not null
+);
+
+Create table Articolo
+(
+	Codice varchar(10) primary key,
+	Stock int not null check (Stock>0),
+	DataAggiunta date not null,
+	Tema varchar(10) not null,
+	Maglietta varchar(10) not null,
+	
+	Foreign key (Tema) references Tema(Codice) on update cascade on delete cascade,
+	Foreign key (Maglietta) references Maglietta(Codice) on update cascade on delete cascade
+	
+);
+
+Create table Utente
+(
+	Codice varchar(10) primary key,
+	Username varchar(25) not null,
+	Password varchar(20) not null,
+	Email varchar(30) not null,
+	Cognome varchar(30) not null,
+	Nome varchar(30) not null,
+	DataNascita date not null
+);
+
+Create table Cliente
+(
+	Utente varchar(10) primary key,
+	Saldo decimal(5,2) not null check (Saldo>=0),
+	Indirizzo varchar(30) not null,
+	
+	Foreign key (Utente) references Utente(Codice) on update cascade on delete cascade
+);
+
+Create table Amministratore
+(
+	Utente varchar(10) primary key,
+	
+	Foreign key (Utente) references Utente(Codice) on update cascade on delete cascade
+);
+
+Create table Wishlist
+(
+	Codice varchar(10) primary key,
+	Cliente varchar(10) not null,
+	
+	Foreign key (Cliente) references Cliente(Utente) on update cascade on delete cascade
+);
+
+Create table Aggiunta
+(
+	Wishlist varchar(10),
+	Articolo varchar(10),
+	DataAggiunta date, 
+	primary key (wishlist, articolo),
+	
+	Foreign key (Wishlist) references Wishlist(Codice) on update cascade on delete cascade,
+	Foreign key (Articolo) references Articolo(Codice) on update cascade on delete cascade
+);
+
+Create table Spedizione
+(
+	Codice varchar(10) primary key,
+	Nome varchar(20) not null,
+	Prezzo decimal(5,2) not null check (Prezzo>=0),
+	Giorni int not null check (Giorni>0),
+	Descrizione varchar(500)
+);
+
+Create table Voce
+(
+	Codice varchar(10) primary key,
+	Articolo varchar(10) not null,
+	Quantità int not null check (Quantità>0), 
+	Prezzo decimal(5,2) not null check (Prezzo>0),
+	
+	Foreign key (Articolo) references Articolo(Codice) on update cascade 
+);
+
+Create table Ordine
+(
+	Codice varchar(10) primary key,
+	Cliente varchar(10) not null,
+	
+	Foreign key (Cliente) references Cliente(Utente) on update cascade on delete cascade
+);
+
+Create table OrdineConfermato
+(
+	Ordine varchar(10) primary key,
+	DataConferma date not null,
+	IndirizzoSpedizione varchar(30) not null,
+	Spedizione varchar(10),
+	
+	Foreign key (Spedizione) references Spedizione(Codice) on update cascade,
+	Foreign key (Ordine) references Ordine(Codice) on update cascade on delete cascade
+);
+
+Create table OrdineNonConfermato
+(
+	Ordine varchar(10) primary key,
+	
+	Foreign key (Ordine) references Ordine(Codice) on update cascade on delete cascade
+);
+
+Create table Composizione
+(
+	Ordine varchar(10),
+	Voce varchar(10),
+	Primary key (Ordine, Voce),
+	
+	Foreign key (Ordine) references Ordine(Codice) on update cascade on delete cascade,
+	Foreign key (Voce) references Voce(Codice) on update cascade on delete cascade
+);
+
+Create table Ricevuta
+(
+	Codice varchar(10) primary key,
+	Ordine varchar(10) not null,
+	Descrizione varchar(500),
+	
+	Foreign key (Ordine) references OrdineConfermato(Ordine) on update cascade on delete cascade
+);
