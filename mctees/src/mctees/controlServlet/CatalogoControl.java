@@ -27,9 +27,29 @@ public class CatalogoControl extends HttpServlet
 		//Accesso al DB: query per ottenere i temi, per adesso ritorniamoli tutti
 		CatalogoModel cm=new CatalogoModel();
 		//Criterio di ricerca scelto (nella request)
-		ArrayList<TemaBean> list=cm.selectAllTemi();
+		String nomeCategoria=request.getParameter("categoria");
+		ArrayList<TemaBean> listaTemi=null;
+		if(nomeCategoria!=null)
+		{
+			if(nomeCategoria.equals("filmecartoni") || nomeCategoria.equals("serietv") || nomeCategoria.equals("giochi") 
+			|| nomeCategoria.equals("altro"))
+			{
+				if(nomeCategoria.equals("filmecartoni"))
+					listaTemi=cm.selectTema("Film e Cartoni");
+				if(nomeCategoria.equals("serietv"))
+					listaTemi=cm.selectTema("Serie TV");
+				if(nomeCategoria.equals("giochi"))
+					listaTemi=cm.selectTema("Giochi");
+				if(nomeCategoria.equals("altro"))
+					listaTemi=cm.selectTema("Altro");
+			}
+			else
+				listaTemi=cm.selectAllTemi();
+		}
+		else
+			listaTemi=cm.selectAllTemi();
 		
-		request.setAttribute("list", list);
+		request.setAttribute("listaTemi", listaTemi);
 		//Mostra la view del Catalogo
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/CatalogoView.jsp");
 		dispatcher.forward(request, response);

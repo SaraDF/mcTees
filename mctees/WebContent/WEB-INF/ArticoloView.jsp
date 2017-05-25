@@ -24,7 +24,7 @@
 				<section id="fotoArticolo">
 					<img src="src/images/magliagiochi.png">
 				</section>
-				<form action="carrello?codiceTema=<%=request.getParameter("codiceTema")%>&action=add" method="post" id="infoArticolo">
+				<form action="carrello?codiceTema=<%=request.getParameter("codiceTema")%>&action=add" method="post" id="infoArticolo" onsubmit="return validateForm()">
 					<table>
 						<tr>
 							<td>Sesso</td>
@@ -89,7 +89,7 @@
 							<td id="prezzoTotaleId"></td>
 							<td>&euro;</td>
 						</tr>
-						<tr><td><input type="submit" value="Aggiungi al carrello" onClick="return validateForm()"></td></tr>
+						<tr><td><input type="submit" value="Aggiungi al carrello"></td></tr>
 					</table>
 				</form>
 			</section>

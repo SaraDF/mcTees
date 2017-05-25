@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
+import mctees.beans.CategoriaBean;
 import mctees.beans.TemaBean;
 
 public class CatalogoModel extends Model
@@ -19,22 +20,71 @@ public class CatalogoModel extends Model
 	{	
 		try
 		{
-			PreparedStatement st=getConnection().prepareStatement("select * from " + "tema" + ";");
+			PreparedStatement st=getConnection().prepareStatement("select t.codice, t.nome, t.prezzo,"
+				+ " t.dataaggiunta, t.edizionelimitata,"
+				+ " c.codice, c.nome"
+				+ " from tema t join categoria c"
+				+ " on t.categoria=c.codice;");
 			ResultSet rs=st.executeQuery();
-			ArrayList<TemaBean> list=new ArrayList<TemaBean>();
+			ArrayList<TemaBean> listaTemi=new ArrayList<TemaBean>();
 			while(rs.next())
 			{
-				TemaBean tb=new TemaBean();
-				tb.setCodice(rs.getString("Codice"));
-				tb.setNome(rs.getString("Nome"));
-				tb.setPrezzo(rs.getDouble("Prezzo"));
+				CategoriaBean categoria=new CategoriaBean();
+				categoria.setCodice(rs.getString("c.codice"));
+				categoria.setNome(rs.getString("c.nome"));
+				
+				TemaBean tema=new TemaBean();
+				tema.setCodice(rs.getString("t.codice"));
+				tema.setNome(rs.getString("t.nome"));
+				tema.setPrezzo(rs.getDouble("t.prezzo"));
 				GregorianCalendar data=new GregorianCalendar();
-				data.setTime(rs.getDate("DataAggiunta"));
-				tb.setDataAggiunta(data);
-				tb.setEdizioneLimitata(rs.getBoolean("EdizioneLimitata"));
-				list.add(tb);
+				data.setTime(rs.getDate("t.dataaggiunta"));
+				tema.setDataAggiunta(data);
+				tema.setEdizioneLimitata(rs.getBoolean("t.edizionelimitata"));
+				tema.setCategoria(categoria);
+				
+				listaTemi.add(tema);
 			}
-			return list;
+			return listaTemi;
+		}
+		catch (SQLException sqle)
+		{
+			sqle.printStackTrace();
+			return null;
+		}
+	}
+	
+	public ArrayList<TemaBean> selectTema(String nomeCategoria)
+	{	
+		try
+		{
+			PreparedStatement st=getConnection().prepareStatement("select t.codice, t.nome, t.prezzo,"
+				+ " t.dataaggiunta, t.edizionelimitata,"
+				+ " c.codice, c.nome"
+				+ " from tema t join categoria c on t.categoria=c.codice"
+				+ " where c.nome=?;");
+			st.setString(1, nomeCategoria);
+			ResultSet rs=st.executeQuery();
+			ArrayList<TemaBean> listaTemi=new ArrayList<TemaBean>();
+			while(rs.next())
+			{
+				CategoriaBean categoria=new CategoriaBean();
+				categoria.setCodice(rs.getString("c.codice"));
+				categoria.setNome(rs.getString("c.nome"));
+				
+				TemaBean tema=new TemaBean();
+				tema.setCodice(rs.getString("t.codice"));
+				tema.setNome(rs.getString("t.nome"));
+				tema.setPrezzo(rs.getDouble("t.prezzo"));
+				GregorianCalendar data=new GregorianCalendar();
+				data.setTime(rs.getDate("t.dataaggiunta"));
+				tema.setDataAggiunta(data);
+				tema.setEdizioneLimitata(rs.getBoolean("t.edizionelimitata"));
+				tema.setCategoria(categoria);
+				
+				listaTemi.add(tema);
+			}
+			return listaTemi;
 		}
 		catch (SQLException sqle)
 		{

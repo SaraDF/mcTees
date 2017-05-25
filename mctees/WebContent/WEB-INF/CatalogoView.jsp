@@ -22,11 +22,11 @@
 		<div id="mainCatalogo">
 			<section id="sideCatalogo">
 				<table id="toptable">
-					<tr><td>Tutte</td></tr>
-					<tr><td>Film</td></tr>
-					<tr><td>Serie TV</td></tr>
-					<tr><td>Giochi</td></tr>
-					<tr><td>Altro</td></tr>
+					<tr><td><a href="catalogo">Tutte</a></td></tr>
+					<tr><td><a href="catalogo?categoria=filmecartoni">Film</a></td></tr>
+					<tr><td><a href="catalogo?categoria=serietv">Serie TV</a></td></tr>
+					<tr><td><a href="catalogo?categoria=giochi">Giochi</a></td></tr>
+					<tr><td><a href="catalogo?categoria=altro">Altro</a></td></tr>
 				</table>
 				<table>
 					<tr><td>Ordina per +</td></tr>
@@ -39,11 +39,11 @@
 			
 			<section id="articoliCatalogo">
 			<% 
-				ArrayList<TemaBean> list=(ArrayList<TemaBean>) request.getAttribute("list");
-				int i=0, n=list.size();
+				ArrayList<TemaBean> listaTemi=(ArrayList<TemaBean>) request.getAttribute("listaTemi");
+				int i=0, n=listaTemi.size();
 				while(i<n)
 				{
-					TemaBean tema=list.get(i);
+					TemaBean tema=listaTemi.get(i);
 					if(i%3==0)
 					{%>
 						<div class="temaRow">
