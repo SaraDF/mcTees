@@ -1,5 +1,6 @@
 package mctees.modelClasses;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,12 +21,14 @@ public class CatalogoModel extends Model
 	{	
 		try
 		{
-			PreparedStatement st=getConnection().prepareStatement("select t.codice, t.nome, t.prezzo,"
+			Connection connection=Model.ds.getConnection();
+			PreparedStatement st=connection.prepareStatement("select t.codice, t.nome, t.prezzo,"
 				+ " t.dataaggiunta, t.edizionelimitata,"
 				+ " c.codice, c.nome"
 				+ " from tema t join categoria c"
 				+ " on t.categoria=c.codice;");
 			ResultSet rs=st.executeQuery();
+			
 			ArrayList<TemaBean> listaTemi=new ArrayList<TemaBean>();
 			while(rs.next())
 			{
@@ -45,6 +48,9 @@ public class CatalogoModel extends Model
 				
 				listaTemi.add(tema);
 			}
+			rs.close();
+			st.close();
+			connection.close();
 			return listaTemi;
 		}
 		catch (SQLException sqle)
@@ -58,7 +64,8 @@ public class CatalogoModel extends Model
 	{	
 		try
 		{
-			PreparedStatement st=getConnection().prepareStatement("select t.codice, t.nome, t.prezzo,"
+			Connection connection=Model.ds.getConnection();
+			PreparedStatement st=connection.prepareStatement("select t.codice, t.nome, t.prezzo,"
 				+ " t.dataaggiunta, t.edizionelimitata,"
 				+ " c.codice, c.nome"
 				+ " from tema t join categoria c on t.categoria=c.codice"
@@ -84,6 +91,9 @@ public class CatalogoModel extends Model
 				
 				listaTemi.add(tema);
 			}
+			rs.close();
+			st.close();
+			connection.close();
 			return listaTemi;
 		}
 		catch (SQLException sqle)

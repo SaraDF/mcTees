@@ -24,9 +24,9 @@ public class CatalogoControl extends HttpServlet
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		//Accesso al DB: query per ottenere i temi, per adesso ritorniamoli tutti
-		CatalogoModel cm=new CatalogoModel();
+		//Accesso al DB: query per ottenere i temi
 		//Criterio di ricerca scelto (nella request)
+		CatalogoModel cm=new CatalogoModel();
 		String nomeCategoria=request.getParameter("categoria");
 		ArrayList<TemaBean> listaTemi=null;
 		if(nomeCategoria!=null)

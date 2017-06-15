@@ -14,11 +14,111 @@
 		<link rel="stylesheet" href="src/styles/footer.css">
 		<link rel="stylesheet" href="src/styles/checkout.css">
 		<link rel="shortcut icon" href="src/images/logo2.png">
+		<script src="src/scripts/jquery-3.2.1.js"></script>
+		<script>
+			function callback(data, statusText, xhr)
+			{
+				var prezzoSpedizione=data.prezzoSpedizione;
+				$("#prezzoSpedizione").html(prezzoSpedizione);
+				$("#prezzoTotale").html(parseFloat($("#totaleArticoli").html()) + prezzoSpedizione);	
+			}
+			
+			function updatePrezzi()
+			{
+				//Aggiorna i prezzi con i nuovi dati giunti dal server per la spedizione scelta
+				var codiceSpedizione=$("input[name='spedizione']:checked").val();	//Ottenuto dal valore del radio selezionato
+				var dataObject=
+				{
+					"codiceSpedizione" : codiceSpedizione
+				};
+				var dataJSON=JSON.stringify(dataObject);
+					
+				$.ajaxSetup(
+				{
+					error: function (xhr, ajaxOptions, thrownError)
+					{
+					    //Può capitare solo se quella spedizione sparisce in quell'istante: difficile
+					}
+				});
+				$.post("checkoutAjax", "data="+dataJSON, callback);
+			}
+			
+			function validateForm()
+			{
+				var cognome=$("input[name='cognome']").val();
+				var nome=$("input[name='nome']").val();
+				var indirizzo=$("input[name='indirizzo']").val();
+				var cellulare=$("input[name='cellulare']").val();
+				var città=$("input[name='città']").val();
+				var provincia=$("input[name='provincia']").val();
+				var cap=$("input[name='cap']").val();
+				
+				var radioSpedizioni=$("input[name='spedizione']");
+				var i=0;
+				var n=radioSpedizioni.length;
+				while(i<n && !radioSpedizioni[i].checked)
+					i++;
+				if(i>=n)
+				{
+					alert("Seleziona un metodo di spedizione");
+					return false;
+				}
+				
+				var numeroCarta=$("input[name='numeroCarta']").val();
+				var proprietarioCarta=d$("input[name='proprietarioCarta']").val();
+				var scadenzaCarta=$("input[name='scadenzaCarta']").val();
+				var cvcCarta=$("input[name='cvcCarta']").val();
+				
+				//Usare le regular expressions per check validità
+				if(cognome.value=="" || nome.value=="" || indirizzo.value=="" || cellulare.value=="" || 
+					città.value=="" || provincia.value=="" || cap.value=="" || numeroCarta.value=="" || 
+					proprietarioCarta.value=="" || scadenzaCarta.value=="" || cvcCarta.value=="")
+					{
+						alert("Devi compilare tutti i campi");
+						return false;
+					}	
+				return true;
+			}
+			
+			function init()
+			{
+				$("input[name='spedizione']").click(updatePrezzi);
+				
+				//Qui, quando ci sarà un utente loggato, si immetono si dati suoi di default, altrimenti vuoto
+				//Per adesso metto alcuni dati segnaposto
+				var cognome="Iannone";
+				var nome="Emanuele";
+				var indirizzo="Via Enea, 7";
+				var cellulare="3290364256";
+				var città="Pontecagnano Faiano";
+				var provincia="Salerno";
+				var cap="84098";
+				var numeroCarta="0000 0000 0000 0000";
+				var proprietarioCarta="Iannone Emanuele";
+				var scadenzaCarta="12/50";
+				var cvcCarta="000";
+				
+				$("input[name='cognome']").val(cognome);
+				$("input[name='nome']").val(nome);
+				$("input[name='indirizzo']").val(indirizzo);
+				$("input[name='cellulare']").val(cellulare);
+				$("input[name='città']").val(città);
+				$("input[name='provincia']").val(provincia);
+				$("input[name='cap']").val(cap);
+				$("input[name='numeroCarta']").val(numeroCarta);
+				$("input[name='proprietarioCarta']").val(proprietarioCarta);
+				$("input[name='scadenzaCarta']").val(scadenzaCarta);
+				$("input[name='cvcCarta']").val(cvcCarta);
+			}
+			
+			$(document).ready(function(){
+			      init();
+			});
+		</script>
 		<title>Checkout - MCTees</title>
 	</head>
 	<body>
 		<%@ include file="fragments/header.html"%>
-		<%! double totale; %>
 		
 		<div id="mainCheckout">
 		<%	ArrayList<VoceBean> listaVoci=(ArrayList<VoceBean>) request.getAttribute("listaVoci");
@@ -63,11 +163,10 @@
 						{	
 							SpedizioneBean spedizione=listaSpedizioni.get(i); %>
 							<tr>
-								<td><input type="radio" name="spedizione" value="<%=spedizione.getCodice() %>" onClick="updatePrezzi();"></td>
+								<td><input type="radio" name="spedizione" value="<%=spedizione.getCodice() %>"></td>
 								<td><%=spedizione.getNome()%> (<%=spedizione.getPrezzo()%> &euro;, <%=spedizione.getGiorni()%> Giorni)</td>
 							</tr>
 					<%	} %>
-						
 						<tr>
 							<td colspan="2"><strong>Modalità pagamento</strong></td>
 						</tr>
@@ -101,7 +200,7 @@
 				</form>
 				<div id="recapCheckout">
 				<%	int m=listaVoci.size();
-					totale=0;
+					double totale=0;
 					for(int i=0; i<m; i++)
 					{
 						VoceBean voce=listaVoci.get(i);
@@ -122,107 +221,16 @@
 						</div>
 				<%	} %>
 					<div id="lowerRecap">
-						<span>Totale articoli: <%=totale %> &euro;</span><br>
+						<span>Totale articoli: <span id="totaleArticoli"><%=totale %></span> &euro;</span><br>
 						+<br>
-						<span>Prezzo spedizione: <span id="prezzoSpedizione">0.00</span>&euro;</span><br>
+						<span>Prezzo spedizione: <span id="prezzoSpedizione">0.00</span> &euro;</span><br>
 						=<br>
-						<span>Totale ordine: <span id="prezzoTotale">0.00</span>&euro;</span>
+						<span>Totale ordine: <span id="prezzoTotale">0.00</span> &euro;</span>
 					</div>	
 				</div>		
 		<% }%>
 		</div>
+		
 		<%@ include file="fragments/footer.html"%>
-		<script>
-			function updatePrezzi()
-			{
-				var radioSpedizioni=document.getElementsByName("spedizione");
-				var i=0;
-				var n=radioSpedizioni.length;
-				while(i<n && !radioSpedizioni[i].checked)
-					i++;
-				if(i<n)
-				{
-					document.getElementById("prezzoSpedizione").innerHTML=listaSpedizioni[i].prezzo+"";
-					document.getElementById("prezzoTotale").innerHTML=<%=totale%> + listaSpedizioni[i].prezzo;
-				}
-			}
-			
-			function init()
-			{	
-				var x;
-			<%	ArrayList<SpedizioneBean> listaSpedizioni=(ArrayList<SpedizioneBean>) request.getAttribute("listaSpedizioni");
-				int n=listaSpedizioni.size();
-				for(int i=0; i<n; i++)
-				{
-					SpedizioneBean spedizione=listaSpedizioni.get(i);
-			%>		x=new Object();
-					x.codice="<%=spedizione.getCodice()%>";
-					x.nome="<%=spedizione.getNome()%>";
-					x.prezzo=<%=spedizione.getPrezzo()%>;
-					x.giorni=<%=spedizione.getGiorni()%>;
-					x.descrizione="<%=spedizione.getDescrizione()%>";
-					
-					listaSpedizioni.push(x);
-			<%	} %>
-				
-				//Qui, quando ci sarà un utente loggato, si immetono si dati suoi di default, altrimenti vuoto
-				//Per adesso metto alcuni dati segnaposto
-				document.forms["form"]["cognome"].value="Iannone";
-				document.forms["form"]["nome"].value="Emanuele";
-				document.forms["form"]["indirizzo"].value="Via Enea, 7";
-				document.forms["form"]["cellulare"].value="3290364256";
-				document.forms["form"]["città"].value="Pontecagnano Faiano";
-				document.forms["form"]["provincia"].value="Salerno";
-				document.forms["form"]["cap"].value="84098";
-				document.forms["form"]["numeroCarta"].value="0000 0000 0000 0000";
-				document.forms["form"]["proprietarioCarta"].value="Iannone Emanuele";
-				document.forms["form"]["scadenzaCarta"].value="12/50";
-				document.forms["form"]["cvcCarta"].value="000";
-			
-				var radioSpedizioni=document.getElementsByName("spedizione");
-				radioSpedizioni[0].checked="checked";
-				document.getElementById("prezzoSpedizione").innerHTML=listaSpedizioni[0].prezzo+"";
-				document.getElementById("prezzoTotale").innerHTML=<%=totale%> + listaSpedizioni[0].prezzo;
-			}
-			
-			function validateForm()
-			{
-				
-				var cognome=document.forms["form"]["cognome"];
-				var nome=document.forms["form"]["nome"];
-				var indirizzo=document.forms["form"]["indirizzo"];
-				var cellulare=document.forms["form"]["cellulare"];
-				var città=document.forms["form"]["città"];
-				var provincia=document.forms["form"]["provincia"];
-				var cap=document.forms["form"]["cap"];
-				
-				
-				var radioSpedizioni=document.forms["form"]["spedizione"];
-				var i=0;
-				var n=radioSpedizioni.length;
-				while(i<n && !radioSpedizioni[i].checked)
-					i++;
-				if(i>=n)
-					return false;
-				
-				var numeroCarta=document.forms["form"]["numeroCarta"];
-				var proprietarioCarta=document.forms["form"]["proprietarioCarta"];
-				var scadenzaCarta=document.forms["form"]["scadenzaCarta"];
-				var cvcCarta=document.forms["form"]["cvcCarta"];
-				
-				//Usare le regular expressions per check validità
-				if(cognome.value=="" || nome.value=="" || indirizzo.value=="" || cellulare.value=="" || 
-					città.value=="" || provincia.value=="" || cap.value=="" || numeroCarta.value=="" || 
-					proprietarioCarta.value=="" || scadenzaCarta.value=="" || cvcCarta.value=="")
-					{
-						alert("Devi compilare tutti i campi");
-						return false;
-					}
-						
-				return true;
-			}
-			var listaSpedizioni=[];
-			window.onload=init;
-		</script>
 	</body>
 </html>

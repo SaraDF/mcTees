@@ -1,5 +1,6 @@
 package mctees.modelClasses;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,8 +18,9 @@ public class CompletoModel extends Model
 	{
 		try
 		{
+			Connection connection=Model.ds.getConnection();
 			//Recuperare la spedizione dato il codice.
-			PreparedStatement st=getConnection().prepareStatement("select codice, nome, prezzo, giorni, descrizione"
+			PreparedStatement st=connection.prepareStatement("select codice, nome, prezzo, giorni, descrizione"
 				+ " from spedizione where codice=?;");
 			st.setString(1, codiceSpedizione);
 			ResultSet rs=st.executeQuery();
@@ -32,6 +34,9 @@ public class CompletoModel extends Model
 				spedizione.setGiorni(rs.getInt("giorni"));
 				spedizione.setDescrizione(rs.getString("descrizione"));
 			}
+			rs.close();
+			st.close();
+			connection.close();
 			return spedizione;
 		}
 		catch (SQLException sqle)

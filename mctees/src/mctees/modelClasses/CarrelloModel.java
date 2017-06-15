@@ -1,5 +1,6 @@
 package mctees.modelClasses;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,8 +24,9 @@ public class CarrelloModel extends Model
 	{	
 		try
 		{
+			Connection connection=Model.ds.getConnection();
 			//Cerco l'articolo dato il codice + suoi dati associati
-			PreparedStatement st=getConnection().prepareStatement("select a.codice as codiceArticolo, a.stock as stockArticolo, a.dataAggiunta as dataAggiuntaArticolo, "
+			PreparedStatement st=connection.prepareStatement("select a.codice as codiceArticolo, a.stock as stockArticolo, a.dataAggiunta as dataAggiuntaArticolo, "
 				+ "m.codice as codiceMaglietta, m.prezzo as prezzoMaglietta, m.tipo as tipoMaglietta, m.sesso as sessoMaglietta, "
 				+ "m.taglia as tagliaMaglietta, m.colore as coloreMaglietta, "
 				+ "t.codice as codiceTema, t.nome as nomeTema, t.prezzo as prezzoTema, t.dataAggiunta as dataAggiuntaTema, "
@@ -99,6 +101,9 @@ public class CarrelloModel extends Model
 			
 			//Manca l'aggiunta al DB della voce appena creata
 			
+			rs.close();
+			st.close();
+			connection.close();
 			return voce;
 		}
 		catch (SQLException sqle)
@@ -121,8 +126,9 @@ public class CarrelloModel extends Model
 	{
 		try
 		{
+			Connection connection=Model.ds.getConnection();
 			//Solo elenco dei Temi con sconti associati
-			PreparedStatement st=getConnection().prepareStatement("select t.codice as codiceTema, "
+			PreparedStatement st=connection.prepareStatement("select t.codice as codiceTema, "
 				+ "s.codice as codiceSconto, s.datainizio as dataInizioSconto, s.dataFine as dataFineSconto, "
 				+ "s.Percentuale as percentualeSconto "
 				+ "from tema t join sconto s on t.sconto=s.codice;");
@@ -181,6 +187,10 @@ public class CarrelloModel extends Model
 				voce.setPrezzo(prezzo);
 				
 				//Manca aggiornamento questa voce nel DB
+				
+				rs.close();
+				st.close();
+				connection.close();
 			}
 		}
 		catch (SQLException sqle)
@@ -193,9 +203,10 @@ public class CarrelloModel extends Model
 	{
 		try
 		{
+			Connection connection=Model.ds.getConnection();
 			boolean flag=false;	//se true almeno una voce è stata modificata
 			//Elenco Articolo-Stock
-			PreparedStatement st=getConnection().prepareStatement("SELECT codice, stock FROM articolo");
+			PreparedStatement st=connection.prepareStatement("SELECT codice, stock FROM articolo");
 			ResultSet rs=st.executeQuery();
 			while(rs.next())
 			{
@@ -213,6 +224,9 @@ public class CarrelloModel extends Model
 					flag=true;
 				}
 			}
+			rs.close();
+			st.close();
+			connection.close();
 			return flag;
 		}
 		catch (SQLException sqle)

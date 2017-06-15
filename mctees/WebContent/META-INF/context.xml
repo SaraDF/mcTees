@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+	<Resource
+		name="jdbc/mctees"
+		auth="Container"
+		driverClassName="com.mysql.jdbc.Driver"
+		type="javax.sql.DataSource"
+		username="root"
+		password="mysql"
+		url="jdbc:mysql://localhost:3306/mctees?autoReconnect=true&amp;useSSL=false"
+		defaultAutoCommit="false"/>
+</Context>

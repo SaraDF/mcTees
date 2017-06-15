@@ -4,4 +4,10 @@
   <welcome-file-list>
     <welcome-file>/WEB-INF/HomeView.jsp</welcome-file>
   </welcome-file-list>
+  <resource-ref>
+    <description>Riferimento ad un DataSource con JNDI</description>
+    <res-ref-name>jdbc/mctees</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+  </resource-ref>
 </web-app>

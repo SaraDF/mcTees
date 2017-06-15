@@ -19,7 +19,7 @@
 		<%@ include file="fragments/header.html"%> 
 		
 		<div id="mainIndex">
-			Slider immagini<br><br><br><br><br><br>
+			Slider immagini<br><br><br><br><br><br> <!-- Mostrare alcuni immagini di Temi -->
 			<section>
 				<p class="leftsection">
 					<a href="catalogo?categoria=filmecartoni">Film e Cartoni</a><br>
